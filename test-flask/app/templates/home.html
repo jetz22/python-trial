@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <section class="hero-card">
+        <div class="hero-card__content">
+            <p class="eyebrow">Dashboard</p>
+            <h1>Welcome back, {{ current_user.email }}!</h1>
+            <p class="muted">You’re signed in and ready to explore your secure workspace.</p>
+        </div>
+
+        <div class="hero-card__info">
+            <div class="info-pill">
+                <span class="info-label">Roles</span>
+                <strong>
+                    {% if current_user.roles %}
+                        {{ current_user.roles | map(attribute='name') | join(', ') }}
+                    {% else %}
+                        None
+                    {% endif %}
+                </strong>
+            </div>
+            <div class="info-pill">
+                <span class="info-label">Status</span>
+                <strong>Active session</strong>
+            </div>
+        </div>
+    </section>
+{% endblock %}

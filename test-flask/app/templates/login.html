@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <section class="auth-card auth-card--split">
+        <!-- Left Blue Panel -->
+        <div class="auth-panel">
+            <p class="eyebrow">SECURE ACCESS</p>
+            <h1>Welcome back</h1>
+            <p class="muted">Sign in to continue managing your workspace with confidence.</p>
+            
+            <ul class="feature-list">
+                <li>Fast and secure sign-in</li>
+                <li>Protected dashboard access</li>
+                <li>Role-based workspace control</li>
+            </ul>
+        </div>
+
+        <!-- Right Form Panel -->
+        <div class="auth-form-panel">
+            <div class="auth-card__header">
+                <p class="eyebrow">LOGIN</p>
+                <h2>Sign in to your account</h2>
+            </div>
+
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('auth.login') }}" class="auth-form">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="you@example.com" required>
+
+                <label for="password">Password</label>
+                <div class="password-input">
+                    <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                    <button type="button" class="password-toggle" id="passwordToggle" aria-label="Show password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+
+                <button type="submit" class="btn-primary">Log In</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.getElementById('passwordToggle');
+            const icon = toggleBtn.querySelector('i');
+
+            toggleBtn.addEventListener('click', function () {
+                const isPassword = passwordInput.type === 'password';
+                passwordInput.type = isPassword ? 'text' : 'password';
+                
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+        });
+    </script>
+{% endblock %}
